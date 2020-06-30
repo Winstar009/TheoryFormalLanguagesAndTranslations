@@ -9,8 +9,8 @@ namespace CodeAnalyzer
 {
     class FiniteStateAutomaton
     {
-        public string Name { get; }
-        public int Priority { get; }
+        public string Name { get; set; }
+        public int Priority { get; set; }
         private List<string> Sigma;
         private List<string> State;
         private List<string> StartState;
@@ -30,16 +30,20 @@ namespace CodeAnalyzer
             StartState = new List<string>();
             FinalState = new List<string>();
             StateTransitions = new List<StateTransition>();
+            ReadFiniteStateAutomaton(path);
+        }
 
-            if(File.Exists(path))
+        private void ReadFiniteStateAutomaton(string path)
+        {
+            if (File.Exists(path))
             {
-                using(StreamReader reader = new StreamReader(path))
+                using (StreamReader reader = new StreamReader(path))
                 {
-                    while(!reader.EndOfStream)
+                    while (!reader.EndOfStream)
                     {
                         string s = reader.ReadLine().Trim();
-                        
-                        switch(s)
+
+                        switch (s)
                         {
                             case "#Name":
                                 Name = reader.ReadLine().Trim();
@@ -49,7 +53,7 @@ namespace CodeAnalyzer
                                 break;
                             case "#Q":
                                 s = reader.ReadLine().Trim();
-                                while(s != "#end")
+                                while (s != "#end")
                                 {
                                     if (s != "")
                                     {
@@ -90,11 +94,12 @@ namespace CodeAnalyzer
 
                                         bool negative = false;
                                         string con = "";
-                                        for(int i = ePos + 1; i < s.Length; i++)
+                                        for (int i = ePos + 1; i < s.Length; i++)
                                         {
-                                            switch(s[i])
+                                            switch (s[i])
                                             {
                                                 case '{':
+                                                    con = "";
                                                     break;
                                                 case '!':
                                                     negative = true;
@@ -113,10 +118,10 @@ namespace CodeAnalyzer
                                                     break;
                                                 case '}':
                                                 case '|':
-                                                    switch(con)
+                                                    switch (con)
                                                     {
                                                         case "[A-Z]":
-                                                            if(negative)
+                                                            if (negative)
                                                             {
                                                                 stateTransition.disallowSymbols += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
                                                             }
@@ -145,6 +150,16 @@ namespace CodeAnalyzer
                                                                 stateTransition.allowSymbols += "0123456789";
                                                             }
                                                             break;
+                                                        default:
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += con;
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += con;
+                                                            }
+                                                            break;
                                                     }
                                                     con = "";
                                                     break;
@@ -152,7 +167,7 @@ namespace CodeAnalyzer
                                                     con += s[i];
                                                     break;
                                             }
-                                            if(s[i] == '}')
+                                            if (s[i] == '}')
                                             {
                                                 ePos = i;
                                                 break;
@@ -192,16 +207,24 @@ namespace CodeAnalyzer
                                 }
                                 break;
                         }
-
-
                     }
                 }
             }
         }
 
-        private string calc(string state, char c)
+        private List<string> calc(string state, char c)
         {
-            return "S1";
+            List<string> newState = new List<string>();
+
+            StateTransitions.FindAll(st => st.InStates.Exists(s => s == state)).ForEach(item =>
+            {
+                if(item.allowSymbols.IndexOf(c) >= 0 && item.disallowSymbols.IndexOf(c) < 0)
+                {
+                    newState.AddRange(item.OutStates);
+                }
+            });
+
+            return newState;
         }
 
         public Tuple<bool, int> maxString(string str, int k)
@@ -215,7 +238,7 @@ namespace CodeAnalyzer
                 List<string> CurStateTmp = new List<string>();
                 foreach(string state in CurState)
                 {
-                    CurStateTmp.Add(calc(state, str[i]));
+                    CurStateTmp.AddRange(calc(state, str[i]));
                 }
                 CurState = CurStateTmp;
                 if(CurState.Count == 0)

@@ -1,0 +1,33 @@
+﻿#Name
+KW
+
+#Priority
+1
+
+#Q
+Q1 Q2 Q3 Q4 Q5 Q6
+#end
+
+#\Sigma
+
+#end
+
+#\Delta
+{Q1}{\i}{Q2}
+{Q2}{\n}{Q3}
+{Q3 Q5}{\t}{Q4 Q6}
+
+{Q1}{\f}{Q2}
+{Q2}{\l}{Q3}
+{Q3}{\o}{Q4}
+{Q4}{\a}{Q5}
+
+#end
+
+#S
+Q1
+#end
+
+#F
+Q4 Q6
+#end

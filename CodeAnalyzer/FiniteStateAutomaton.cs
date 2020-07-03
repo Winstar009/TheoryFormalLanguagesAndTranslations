@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CodeAnalyzer
 {
@@ -15,7 +13,7 @@ namespace CodeAnalyzer
         private List<string> State;
         private List<string> StartState;
         private List<string> FinalState;
-        
+
         private struct StateTransition
         {
             public List<string> InStates, OutStates;
@@ -218,7 +216,7 @@ namespace CodeAnalyzer
 
             StateTransitions.FindAll(st => st.InStates.Exists(s => s == state)).ForEach(item =>
             {
-                if(item.allowSymbols.IndexOf(c) >= 0 && item.disallowSymbols.IndexOf(c) < 0)
+                if (item.allowSymbols.IndexOf(c) >= 0 && item.disallowSymbols.IndexOf(c) < 0)
                 {
                     newState.AddRange(item.OutStates);
                 }
@@ -233,19 +231,19 @@ namespace CodeAnalyzer
             int m = 0;
             List<string> CurState = StartState;
 
-            for(int i = k; i < str.Length; i++)
+            for (int i = k; i < str.Length; i++)
             {
                 List<string> CurStateTmp = new List<string>();
-                foreach(string state in CurState)
+                foreach (string state in CurState)
                 {
                     CurStateTmp.AddRange(calc(state, str[i]));
                 }
                 CurState = CurStateTmp;
-                if(CurState.Count == 0)
+                if (CurState.Count == 0)
                 {
                     break;
                 }
-                if(CurState.Intersect(FinalState).Any())
+                if (CurState.Intersect(FinalState).Any())
                 {
                     result = true;
                     m = i - k + 1;

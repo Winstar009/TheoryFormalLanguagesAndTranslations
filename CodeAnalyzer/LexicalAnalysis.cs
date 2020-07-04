@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 
 namespace CodeAnalyzer
 {
@@ -21,6 +22,11 @@ namespace CodeAnalyzer
                     FiniteStateAutomatons.Add(new FiniteStateAutomaton(paths[i]));
                 }
             }
+        }
+
+        public void ShowLoadAutomatons(DataGridView dgv)
+        {
+            dgv.DataSource = FiniteStateAutomatons;
         }
 
         public string Start(string inputCode)
@@ -53,7 +59,27 @@ namespace CodeAnalyzer
                 }
                 else
                 {
-                    result += $"<\"{FiniteStateAutomatonName}\",{inputCode.Substring(k, M)}>";
+                    string sub = inputCode.Substring(k, M), 
+                        res = $"<\"{FiniteStateAutomatonName}\",";
+                    switch(sub)
+                    {
+                        case " ":
+                            res += "spase>";
+                            break;
+                        case "\t":
+                            res += "tabulation>";
+                            break;
+                        case "\n":
+                            res += "line feed>\n";
+                            break;
+                        case "\r":
+                            res += "form feed>\r";
+                            break;
+                        default:
+                            res += sub + ">";
+                            break;
+                    }
+                    result += res;
                     k += M;
                 }
             }

@@ -8,7 +8,7 @@ namespace CodeAnalyzer
     {
         public static void Start()
         {
-            List<Tuple<List<int>, char, List<int>>> letters = new List<Tuple<List<int>, char, List<int>>>();
+            List<Tuple<int, char, int>> stateTransition = new List<Tuple<int, char, int>>();
 
             List<string> kws = new List<string>();
             using (StreamReader reader = new StreamReader("../../Resources/Keywords.txt"))
@@ -29,43 +29,28 @@ namespace CodeAnalyzer
             {
                 for (int i = 0; i < kw.Length; i++)
                 {
-                    int index = letters.FindIndex(l => l.Item2 == kw[i]);
+                    int index = stateTransition.FindIndex(st => st.Item3 == q);
                     if (index >= 0)
                     {
-                        List<int> s = letters[index].Item1;
-                        s.Add(q);
-                        List<int> f = letters[index].Item3;
-                        f.Add(++q);
-                        letters[index] = new Tuple<List<int>, char, List<int>>(s, kw[i], f);
+                        stateTransition.Add(new Tuple<int, char, int>(q, kw[i], ++q));
                     }
                     else
                     {
-                        letters.Add(new Tuple<List<int>, char, List<int>>(new List<int> { 1 }, kw[i], new List<int> { ++q }));
+                        stateTransition.Add(new Tuple<int, char, int>(1, kw[i], ++q));
                     }
                 }
                 F.Add(q);
+                q++;
             });
 
             using (StreamWriter writer = new StreamWriter("../../Resources/KeywordsFunc.txt"))
             {
                 writer.WriteLine("#\\Delta");
-                letters.ForEach((letter) =>
+                stateTransition.ForEach((st) =>
                 {
-                    string startState = "";
-                    letter.Item1.ForEach((item) =>
-                    {
-                        startState += "Q" + item + " ";
-                    });
-                    startState = startState.Trim();
-
-                    string finalState = "";
-                    letter.Item3.ForEach((item) =>
-                    {
-                        finalState += "Q" + item + " ";
-                    });
-                    finalState = finalState.Trim();
-
-                    writer.WriteLine("{" + startState + "}{\\" + letter.Item2 + "}{" + finalState + "}");
+                    string startState = "Q" + st.Item1;
+                    string finalState = "Q" + st.Item3;
+                    writer.WriteLine("{" + startState + "}{\\" + st.Item2 + "}{" + finalState + "}");
                 });
                 writer.WriteLine("#end\n");
 

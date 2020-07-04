@@ -148,6 +148,18 @@ namespace CodeAnalyzer
                                                                 stateTransition.allowSymbols += "0123456789";
                                                             }
                                                             break;
+                                                        case "SPACE":
+                                                            stateTransition.allowSymbols += " ";
+                                                            break;
+                                                        case "TABULATION":
+                                                            stateTransition.allowSymbols += "\t";
+                                                            break;
+                                                        case "LINEFEED":
+                                                            stateTransition.allowSymbols += "\n";
+                                                            break;
+                                                        case "FORMFEED":
+                                                            stateTransition.allowSymbols += "\r";
+                                                            break;
                                                         default:
                                                             if (negative)
                                                             {
@@ -236,7 +248,14 @@ namespace CodeAnalyzer
                 List<string> CurStateTmp = new List<string>();
                 foreach (string state in CurState)
                 {
-                    CurStateTmp.AddRange(calc(state, str[i]));
+                    calc(state, str[i]).ForEach((item) =>
+                    {
+                        if(!CurStateTmp.Exists(s => s == item))
+                        {
+                            CurStateTmp.Add(item);
+                        }
+                    });
+                    // CurStateTmp.AddRange(calc(state, str[i]));
                 }
                 CurState = CurStateTmp;
                 if (CurState.Count == 0)

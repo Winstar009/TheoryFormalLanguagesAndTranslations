@@ -86,6 +86,7 @@
   <ItemGroup>
     <Content Include="FiniteStateAutomatons\KW.txt" />
     <Content Include="FiniteStateAutomatons\ID.txt" />
+    <Content Include="FiniteStateAutomatons\WS.txt" />
     <Content Include="Resources\Keywords.txt" />
     <Content Include="Resources\KeywordsFunc.txt" />
   </ItemGroup>

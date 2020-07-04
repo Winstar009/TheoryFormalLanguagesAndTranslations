@@ -30,12 +30,12 @@
         {
             this.buttonLoadFiniteStateAutomatons = new System.Windows.Forms.Button();
             this.buttonDeleteFiniteStateAutomaton = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
-            this.button4 = new System.Windows.Forms.Button();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.buttonOpenFile = new System.Windows.Forms.Button();
+            this.richTextBoxOutput = new System.Windows.Forms.RichTextBox();
+            this.buttonStartAnalysis = new System.Windows.Forms.Button();
+            this.dataGridViewFiniteStateAutomatons = new System.Windows.Forms.DataGridView();
+            this.richTextBoxInputCode = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiniteStateAutomatons)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonLoadFiniteStateAutomatons
@@ -56,72 +56,77 @@
             this.buttonDeleteFiniteStateAutomaton.Text = "Удалить конечный автомат";
             this.buttonDeleteFiniteStateAutomaton.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // buttonOpenFile
             // 
-            this.button3.Location = new System.Drawing.Point(12, 70);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(175, 23);
-            this.button3.TabIndex = 3;
-            this.button3.Text = "Открыть файл с кодом";
-            this.button3.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Location = new System.Drawing.Point(12, 70);
+            this.buttonOpenFile.Name = "buttonOpenFile";
+            this.buttonOpenFile.Size = new System.Drawing.Size(175, 23);
+            this.buttonOpenFile.TabIndex = 3;
+            this.buttonOpenFile.Text = "Открыть файл с кодом";
+            this.buttonOpenFile.UseVisualStyleBackColor = true;
+            this.buttonOpenFile.Click += new System.EventHandler(this.buttonOpenFile_Click);
             // 
-            // richTextBox1
+            // richTextBoxOutput
             // 
-            this.richTextBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.richTextBoxOutput.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox1.Location = new System.Drawing.Point(12, 519);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(1240, 150);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.richTextBoxOutput.Location = new System.Drawing.Point(12, 519);
+            this.richTextBoxOutput.Name = "richTextBoxOutput";
+            this.richTextBoxOutput.Size = new System.Drawing.Size(1240, 150);
+            this.richTextBoxOutput.TabIndex = 4;
+            this.richTextBoxOutput.Text = "";
             // 
-            // button4
+            // buttonStartAnalysis
             // 
-            this.button4.Location = new System.Drawing.Point(12, 99);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(175, 23);
-            this.button4.TabIndex = 5;
-            this.button4.Text = "Выполнить анализ";
-            this.button4.UseVisualStyleBackColor = true;
+            this.buttonStartAnalysis.Location = new System.Drawing.Point(12, 99);
+            this.buttonStartAnalysis.Name = "buttonStartAnalysis";
+            this.buttonStartAnalysis.Size = new System.Drawing.Size(175, 23);
+            this.buttonStartAnalysis.TabIndex = 5;
+            this.buttonStartAnalysis.Text = "Выполнить анализ";
+            this.buttonStartAnalysis.UseVisualStyleBackColor = true;
+            this.buttonStartAnalysis.Click += new System.EventHandler(this.buttonStartAnalysis_Click);
             // 
-            // dataGridView1
+            // dataGridViewFiniteStateAutomatons
             // 
-            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.dataGridViewFiniteStateAutomatons.AllowUserToAddRows = false;
+            this.dataGridViewFiniteStateAutomatons.AllowUserToDeleteRows = false;
+            this.dataGridViewFiniteStateAutomatons.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(193, 12);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(1059, 110);
-            this.dataGridView1.TabIndex = 6;
+            this.dataGridViewFiniteStateAutomatons.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewFiniteStateAutomatons.Location = new System.Drawing.Point(193, 12);
+            this.dataGridViewFiniteStateAutomatons.Name = "dataGridViewFiniteStateAutomatons";
+            this.dataGridViewFiniteStateAutomatons.ReadOnly = true;
+            this.dataGridViewFiniteStateAutomatons.Size = new System.Drawing.Size(1059, 110);
+            this.dataGridViewFiniteStateAutomatons.TabIndex = 6;
             // 
-            // richTextBox2
+            // richTextBoxInputCode
             // 
-            this.richTextBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.richTextBoxInputCode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.richTextBox2.Location = new System.Drawing.Point(12, 128);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.Size = new System.Drawing.Size(1240, 385);
-            this.richTextBox2.TabIndex = 7;
-            this.richTextBox2.Text = "";
+            this.richTextBoxInputCode.Location = new System.Drawing.Point(12, 128);
+            this.richTextBoxInputCode.Name = "richTextBoxInputCode";
+            this.richTextBoxInputCode.Size = new System.Drawing.Size(1240, 385);
+            this.richTextBoxInputCode.TabIndex = 7;
+            this.richTextBoxInputCode.Text = "";
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1264, 681);
-            this.Controls.Add(this.richTextBox2);
-            this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.richTextBox1);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.richTextBoxInputCode);
+            this.Controls.Add(this.dataGridViewFiniteStateAutomatons);
+            this.Controls.Add(this.buttonStartAnalysis);
+            this.Controls.Add(this.richTextBoxOutput);
+            this.Controls.Add(this.buttonOpenFile);
             this.Controls.Add(this.buttonDeleteFiniteStateAutomaton);
             this.Controls.Add(this.buttonLoadFiniteStateAutomatons);
             this.MinimumSize = new System.Drawing.Size(640, 480);
             this.Name = "MainWindow";
             this.Text = "Анализатор";
             this.Load += new System.EventHandler(this.MainWindow_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewFiniteStateAutomatons)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -130,11 +135,11 @@
 
         private System.Windows.Forms.Button buttonLoadFiniteStateAutomatons;
         private System.Windows.Forms.Button buttonDeleteFiniteStateAutomaton;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.RichTextBox richTextBox1;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
+        private System.Windows.Forms.Button buttonOpenFile;
+        private System.Windows.Forms.RichTextBox richTextBoxOutput;
+        private System.Windows.Forms.Button buttonStartAnalysis;
+        private System.Windows.Forms.DataGridView dataGridViewFiniteStateAutomatons;
+        private System.Windows.Forms.RichTextBox richTextBoxInputCode;
     }
 }
 

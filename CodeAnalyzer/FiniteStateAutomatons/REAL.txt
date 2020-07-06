@@ -1,8 +1,8 @@
 ﻿#Name
-WS
+REAL
 
 #Priority
-200
+250
 
 #Q
 Q1 Q2 Q3 Q4 Q5
@@ -13,10 +13,10 @@ Q1 Q2 Q3 Q4 Q5
 #end
 
 #\Delta
-{Q1}{SPACE}{Q2}
-{Q1}{TABULATION}{Q3}
-{Q1}{LINEFEED}{Q4}
-{Q1}{FORMFEED}{Q5}
+{Q1} {\-} {Q2}
+{Q1 Q2 Q3} {\.} {Q4}
+{Q1 Q2 Q3} {[0-9]} {Q3}
+{Q4 Q5} {[0-9]} {Q5}
 #end
 
 #S
@@ -24,5 +24,5 @@ Q1
 #end
 
 #F
-Q2 Q3 Q4 Q5
+Q5
 #end

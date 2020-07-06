@@ -22,7 +22,9 @@ namespace CodeAnalyzer
             {
                 "../../FiniteStateAutomatons/ID.txt",
                 "../../FiniteStateAutomatons/KW.txt",
-                "../../FiniteStateAutomatons/WS.txt"
+                "../../FiniteStateAutomatons/WS.txt",
+                "../../FiniteStateAutomatons/INTEGER.txt",
+                "../../FiniteStateAutomatons/REAL.txt"
             });
 
             la.ShowLoadAutomatons(dataGridViewFiniteStateAutomatons);

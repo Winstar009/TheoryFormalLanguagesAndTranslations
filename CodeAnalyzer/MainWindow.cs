@@ -12,27 +12,13 @@ namespace CodeAnalyzer
             InitializeComponent();
 
             la = new LexicalAnalysis();
+            la.SetOutAutomatons(dataGridViewFiniteStateAutomatons);
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            // GenerateAutomatonKWText.Start();
-
-            la.LoadFiniteStateAutomatons(new string[]
-            {
-                "../../FiniteStateAutomatons/ID.txt",
-                "../../FiniteStateAutomatons/KW.txt",
-                "../../FiniteStateAutomatons/WS.txt",
-                "../../FiniteStateAutomatons/INTEGER.txt",
-                "../../FiniteStateAutomatons/REAL.txt"
-            });
-
-            la.ShowLoadAutomatons(dataGridViewFiniteStateAutomatons);
-
-            string inputCode = "float myID = 12";
-            string result = la.Start(inputCode);
-
-            Console.WriteLine(result);
+            GenerateAutomatonText.Start("../../Resources/Keywords.txt", "../../Resources/KeywordsFunc.txt");
+            GenerateAutomatonText.Start("../../Resources/Operators.txt", "../../Resources/OperatorsFunc.txt");
         }
 
         private void buttonOpenFile_Click(object sender, EventArgs e)
@@ -53,6 +39,40 @@ namespace CodeAnalyzer
         private void buttonStartAnalysis_Click(object sender, EventArgs e)
         {
             richTextBoxOutput.Text = la.Start(richTextBoxInputCode.Text);
+        }
+
+        private void buttonLoadFiniteStateAutomatons_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog dialog = new OpenFileDialog())
+            {
+                dialog.Title = "Открыть файл";
+                dialog.Filter = "Текстовый документ (*.txt)|*.txt|Все файлы (*.*)|*.*";
+                dialog.Multiselect = true;
+                DialogResult result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    la.LoadFiniteStateAutomatons(dialog.FileNames);
+                }
+            }
+        }
+
+        private void buttonDeleteFiniteStateAutomaton_Click(object sender, EventArgs e)
+        {
+            if(dataGridViewFiniteStateAutomatons.SelectedRows.Count == 1)
+            {
+                try
+                {
+                    la.RemoveFiniteStateAutomatonByName(dataGridViewFiniteStateAutomatons.SelectedRows[0].Cells[0].Value.ToString());
+                }
+                catch (ArgumentException ex)
+                {
+                    MessageBox.Show(this, ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show(this, "Выберите строку", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

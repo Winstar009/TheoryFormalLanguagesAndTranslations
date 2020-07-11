@@ -4,14 +4,14 @@ using System.IO;
 
 namespace CodeAnalyzer
 {
-    class GenerateAutomatonKWText
+    class GenerateAutomatonText
     {
-        public static void Start()
+        public static void Start(string path, string outPath)
         {
             List<Tuple<int, char, int>> stateTransition = new List<Tuple<int, char, int>>();
 
             List<string> kws = new List<string>();
-            using (StreamReader reader = new StreamReader("../../Resources/Keywords.txt"))
+            using (StreamReader reader = new StreamReader(path))
             {
                 while (!reader.EndOfStream)
                 {
@@ -43,8 +43,18 @@ namespace CodeAnalyzer
                 q++;
             });
 
-            using (StreamWriter writer = new StreamWriter("../../Resources/KeywordsFunc.txt"))
+            using (StreamWriter writer = new StreamWriter(outPath))
             {
+                writer.WriteLine("#Q");
+                string qs = "";
+                for(int i = 1; i < q; i++)
+                {
+                    qs += "Q" + i + " ";
+                }
+                qs = qs.Trim();
+                writer.WriteLine(qs);
+                writer.WriteLine("#end\n");
+
                 writer.WriteLine("#\\Delta");
                 stateTransition.ForEach((st) =>
                 {

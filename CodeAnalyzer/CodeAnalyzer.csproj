@@ -47,7 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FiniteStateAutomaton.cs" />
-    <Compile Include="GenerateAutomatonKWText.cs" />
+    <Compile Include="GenerateAutomatonText.cs" />
     <Compile Include="LexicalAnalysis.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
@@ -84,13 +84,16 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="FiniteStateAutomatons\OP.txt" />
     <Content Include="FiniteStateAutomatons\REAL.txt" />
     <Content Include="FiniteStateAutomatons\INTEGER.txt" />
     <Content Include="FiniteStateAutomatons\KW.txt" />
     <Content Include="FiniteStateAutomatons\ID.txt" />
     <Content Include="FiniteStateAutomatons\WS.txt" />
+    <Content Include="Resources\Operators.txt" />
     <Content Include="Resources\Keywords.txt" />
     <Content Include="Resources\KeywordsFunc.txt" />
+    <Content Include="Resources\OperatorsFunc.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

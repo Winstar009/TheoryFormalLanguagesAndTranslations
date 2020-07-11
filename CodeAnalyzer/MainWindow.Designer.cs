@@ -46,6 +46,7 @@
             this.buttonLoadFiniteStateAutomatons.TabIndex = 0;
             this.buttonLoadFiniteStateAutomatons.Text = "Загрузить конечные автоматы";
             this.buttonLoadFiniteStateAutomatons.UseVisualStyleBackColor = true;
+            this.buttonLoadFiniteStateAutomatons.Click += new System.EventHandler(this.buttonLoadFiniteStateAutomatons_Click);
             // 
             // buttonDeleteFiniteStateAutomaton
             // 
@@ -55,6 +56,7 @@
             this.buttonDeleteFiniteStateAutomaton.TabIndex = 1;
             this.buttonDeleteFiniteStateAutomaton.Text = "Удалить конечный автомат";
             this.buttonDeleteFiniteStateAutomaton.UseVisualStyleBackColor = true;
+            this.buttonDeleteFiniteStateAutomaton.Click += new System.EventHandler(this.buttonDeleteFiniteStateAutomaton_Click);
             // 
             // buttonOpenFile
             // 

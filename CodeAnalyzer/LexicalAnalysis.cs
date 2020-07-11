@@ -8,6 +8,7 @@ namespace CodeAnalyzer
     class LexicalAnalysis
     {
         private List<FiniteStateAutomaton> FiniteStateAutomatons;
+        private DataGridView outAutomatons;
         public LexicalAnalysis()
         {
             FiniteStateAutomatons = new List<FiniteStateAutomaton>();
@@ -22,11 +23,33 @@ namespace CodeAnalyzer
                     FiniteStateAutomatons.Add(new FiniteStateAutomaton(paths[i]));
                 }
             }
+            ShowLoadAutomatons();
         }
 
-        public void ShowLoadAutomatons(DataGridView dgv)
+        public void RemoveFiniteStateAutomatonByName(string name)
         {
-            dgv.DataSource = FiniteStateAutomatons;
+            FiniteStateAutomaton automaton = FiniteStateAutomatons.Find(a => a.Name == name);
+            if(automaton != null)
+            {
+                FiniteStateAutomatons.Remove(automaton);
+                ShowLoadAutomatons();
+            }
+            else
+            {
+                throw new ArgumentException($"Ошибка удаления: конечный автомат с именем \"{name}\" - не найден.");
+            }
+        }
+
+        public void ShowLoadAutomatons()
+        {
+            outAutomatons.DataSource = null;
+            outAutomatons.Rows.Clear();
+            outAutomatons.DataSource = FiniteStateAutomatons;
+        }
+
+        public void SetOutAutomatons(DataGridView dgv)
+        {
+            outAutomatons = dgv;
         }
 
         public string Start(string inputCode)
@@ -54,7 +77,7 @@ namespace CodeAnalyzer
                 });
                 if (!Result)
                 {
-                    result += $"<\"Err\",{k}>";
+                    result += $"<\"Err\",{k},{inputCode[k]}>";
                     k++;
                 }
                 else

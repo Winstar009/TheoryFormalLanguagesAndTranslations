@@ -4,7 +4,7 @@
 <"KW",using><"WS",spase><"ID",System><"OP",.><"ID",Text><"OP",;><"NL",form feed><"NL",line feed>
 <"KW",using><"WS",spase><"ID",System><"OP",.><"ID",Threading><"OP",.><"ID",Tasks><"OP",;><"NL",form feed><"NL",
 ><"NL",line feed>
-<"KW",namespace><"WS",spase><"ID",UnitTestTheoryFormalLanguagesAndTranslations><"OP",.><"ID",TestingData><"OP",.><"ID",Source><"NL",form feed><"NL",line feed>
+<"KW",namespace><"WS",spase><"ID",UnitTestCodeAnalyzer><"OP",.><"ID",TestingData><"OP",.><"ID",Source><"NL",form feed><"NL",line feed>
 <"OP",{><"NL",form feed><"NL",line feed>
 <"WS",spase><"WS",spase><"WS",spase><"WS",spase><"KW",class><"WS",spase><"ID",SimpleClass2><"NL",form feed><"NL",line feed>
 <"WS",spase><"WS",spase><"WS",spase><"WS",spase><"OP",{><"NL",form feed><"NL",line feed>

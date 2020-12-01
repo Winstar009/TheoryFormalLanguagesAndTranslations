@@ -1,0 +1,30 @@
+﻿#Name
+NL
+
+#Priority
+200
+
+#Q
+Q1 Q2 Q3 Q4 Q5 Q6
+#end
+
+#\Sigma
+
+#end
+
+#\Delta
+{Q1}{LINEFEED}{Q2}
+{Q2}{CARRIAGERETURN}{Q3}
+{Q1}{CARRIAGERETURN}{Q4}
+{Q1}{NEXTLINE}{Q5}
+{Q1}{LINESEPARATOR}{Q6}
+{Q1}{PARAGRAPHSEPARATOR}{Q7}
+#end
+
+#S
+Q1
+#end
+
+#F
+Q2 Q3 Q4 Q5 Q6
+#end

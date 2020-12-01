@@ -38,7 +38,7 @@ namespace CodeAnalyzer
 
         private void buttonStartAnalysis_Click(object sender, EventArgs e)
         {
-            richTextBoxOutput.Text = la.Start(richTextBoxInputCode.Text);
+            richTextBoxOutput.Text = la.Lexer(richTextBoxInputCode.Text);
         }
 
         private void buttonLoadFiniteStateAutomatons_Click(object sender, EventArgs e)

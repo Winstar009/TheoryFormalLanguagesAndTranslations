@@ -96,9 +96,6 @@ namespace CodeAnalyzer
                                         {
                                             switch (s[i])
                                             {
-                                                case '{':
-                                                    con = "";
-                                                    break;
                                                 case '!':
                                                     negative = true;
                                                     break;
@@ -113,6 +110,10 @@ namespace CodeAnalyzer
                                                     {
                                                         stateTransition.allowSymbols += s[i];
                                                     }
+                                                    i++;
+                                                    break;
+                                                case '{':
+                                                    con = "";
                                                     break;
                                                 case '}':
                                                 case '|':
@@ -138,6 +139,26 @@ namespace CodeAnalyzer
                                                                 stateTransition.allowSymbols += "abcdefghijklmnopqrstuvwxyz";
                                                             }
                                                             break;
+                                                        case "[А-Я]":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧЬЪЭЮЯ";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧЬЪЭЮЯ";
+                                                            }
+                                                            break;
+                                                        case "[а-я]":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "абвгдеёжзийклмнопрстуфхцчьъэюя";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "абвгдеёжзийклмнопрстуфхцчьъэюя";
+                                                            }
+                                                            break;
                                                         case "[0-9]":
                                                             if (negative)
                                                             {
@@ -149,16 +170,94 @@ namespace CodeAnalyzer
                                                             }
                                                             break;
                                                         case "SPACE":
-                                                            stateTransition.allowSymbols += " ";
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += " ";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += " ";
+                                                            }
                                                             break;
-                                                        case "TABULATION":
-                                                            stateTransition.allowSymbols += "\t";
+                                                        case "HORIZONTALTAB":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\t";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\t";
+                                                            }
                                                             break;
-                                                        case "LINEFEED":
-                                                            stateTransition.allowSymbols += "\n";
+                                                        case "VERTICALTAB":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\v";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\v";
+                                                            }
                                                             break;
                                                         case "FORMFEED":
-                                                            stateTransition.allowSymbols += "\r";
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\f";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\f";
+                                                            }
+                                                            break;
+                                                        case "LINEFEED":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\n";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\n";
+                                                            }
+                                                            break;
+                                                        case "CARRIAGERETURN":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\r";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\r";
+                                                            }
+                                                            break;
+                                                        case "NEXTLINE":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\u0085";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\u0085";
+                                                            }
+                                                            break;
+                                                        case "LINESEPARATOR":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\u2028";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\u2028";
+                                                            }
+                                                            break;
+                                                        case "PARAGRAPHSEPARATOR":
+                                                            if (negative)
+                                                            {
+                                                                stateTransition.disallowSymbols += "\u2029";
+                                                            }
+                                                            else
+                                                            {
+                                                                stateTransition.allowSymbols += "\u2029";
+                                                            }
                                                             break;
                                                         default:
                                                             if (negative)
@@ -228,7 +327,7 @@ namespace CodeAnalyzer
 
             StateTransitions.FindAll(st => st.InStates.Exists(s => s == state)).ForEach(item =>
             {
-                if (item.allowSymbols.IndexOf(c) >= 0 && item.disallowSymbols.IndexOf(c) < 0)
+                if (item.allowSymbols.IndexOf(c) >= 0 || (item.disallowSymbols.Length > 0 && item.disallowSymbols.IndexOf(c) < 0))
                 {
                     newState.AddRange(item.OutStates);
                 }
@@ -250,7 +349,7 @@ namespace CodeAnalyzer
                 {
                     calc(state, str[i]).ForEach((item) =>
                     {
-                        if(!CurStateTmp.Exists(s => s == item))
+                        if (!CurStateTmp.Exists(s => s == item))
                         {
                             CurStateTmp.Add(item);
                         }

@@ -89,6 +89,10 @@
     <Content Include="FiniteStateAutomatons\INTEGER.txt" />
     <Content Include="FiniteStateAutomatons\KW.txt" />
     <Content Include="FiniteStateAutomatons\ID.txt" />
+    <Content Include="FiniteStateAutomatons\NL.txt" />
+    <Content Include="FiniteStateAutomatons\COMMENT.txt" />
+    <Content Include="FiniteStateAutomatons\CHAR.txt" />
+    <Content Include="FiniteStateAutomatons\STRING.txt" />
     <Content Include="FiniteStateAutomatons\WS.txt" />
     <Content Include="Resources\Operators.txt" />
     <Content Include="Resources\Keywords.txt" />

@@ -52,7 +52,7 @@ namespace CodeAnalyzer
             outAutomatons = dgv;
         }
 
-        public string Start(string inputCode)
+        public string Lexer(string inputCode)
         {
             string result = "";
 
@@ -90,13 +90,28 @@ namespace CodeAnalyzer
                             res += "spase>";
                             break;
                         case "\t":
-                            res += "tabulation>";
+                            res += "horizontal tab>";
+                            break;
+                        case "\v":
+                            res += "vertical tab>";
+                            break;
+                        case "\f":
+                            res += "form feed>";
                             break;
                         case "\n":
                             res += "line feed>\n";
                             break;
                         case "\r":
                             res += "form feed>\r";
+                            break;
+                        case "\u0085":
+                            res += "next line>\r";
+                            break;
+                        case "\u2028":
+                            res += "line separator>\r";
+                            break;
+                        case "\u2029":
+                            res += "paragraph separator>\r";
                             break;
                         default:
                             res += sub + ">";

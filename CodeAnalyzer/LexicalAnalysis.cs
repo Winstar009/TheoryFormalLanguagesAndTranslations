@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace CodeAnalyzer
 {
-    class LexicalAnalysis
+    public class LexicalAnalysis
     {
         private List<FiniteStateAutomaton> FiniteStateAutomatons;
         private DataGridView outAutomatons;
@@ -42,9 +42,12 @@ namespace CodeAnalyzer
 
         public void ShowLoadAutomatons()
         {
-            outAutomatons.DataSource = null;
-            outAutomatons.Rows.Clear();
-            outAutomatons.DataSource = FiniteStateAutomatons;
+            if (outAutomatons != null)
+            {
+                outAutomatons.DataSource = null;
+                outAutomatons.Rows.Clear();
+                outAutomatons.DataSource = FiniteStateAutomatons;
+            }
         }
 
         public void SetOutAutomatons(DataGridView dgv)
@@ -52,7 +55,7 @@ namespace CodeAnalyzer
             outAutomatons = dgv;
         }
 
-        public string Lexer(string inputCode)
+        public string Lexer(string inputCode, bool testMode = false)
         {
             string result = "";
 
@@ -77,6 +80,10 @@ namespace CodeAnalyzer
                 });
                 if (!Result)
                 {
+                    if (testMode)
+                    {
+                        return "error";
+                    }    
                     result += $"<\"Err\",{k},{inputCode[k]}>";
                     k++;
                 }
@@ -105,13 +112,13 @@ namespace CodeAnalyzer
                             res += "form feed>\r";
                             break;
                         case "\u0085":
-                            res += "next line>\r";
+                            res += "next line>\u0085";
                             break;
                         case "\u2028":
-                            res += "line separator>\r";
+                            res += "line separator>\u2028";
                             break;
                         case "\u2029":
-                            res += "paragraph separator>\r";
+                            res += "paragraph separator>\u2029";
                             break;
                         default:
                             res += sub + ">";

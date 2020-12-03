@@ -142,21 +142,21 @@ namespace CodeAnalyzer
                                                         case "[А-Я]":
                                                             if (negative)
                                                             {
-                                                                stateTransition.disallowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧЬЪЭЮЯ";
+                                                                stateTransition.disallowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
                                                             }
                                                             else
                                                             {
-                                                                stateTransition.allowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧЬЪЭЮЯ";
+                                                                stateTransition.allowSymbols += "АБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ";
                                                             }
                                                             break;
                                                         case "[а-я]":
                                                             if (negative)
                                                             {
-                                                                stateTransition.disallowSymbols += "абвгдеёжзийклмнопрстуфхцчьъэюя";
+                                                                stateTransition.disallowSymbols += "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
                                                             }
                                                             else
                                                             {
-                                                                stateTransition.allowSymbols += "абвгдеёжзийклмнопрстуфхцчьъэюя";
+                                                                stateTransition.allowSymbols += "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
                                                             }
                                                             break;
                                                         case "[0-9]":
